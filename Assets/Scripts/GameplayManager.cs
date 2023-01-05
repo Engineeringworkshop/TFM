@@ -150,7 +150,7 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(RoundEnding());
 
         // Check if a player wins the game
-        if (currentWinner.WinCount >= 2)
+        if (currentWinner != null && currentWinner.WinCount >= 2)
         {
             StartCoroutine(GameEndCoroutine());
         }
@@ -218,7 +218,15 @@ public class GameplayManager : MonoBehaviour
         IsPaused = true;
 
         // Show round winner
-        messageText.text = currentWinner.playerName + " wins";
+        if (currentWinner == null)
+        {
+            messageText.text = "Tied round";
+        }
+        else
+        {
+            messageText.text = currentWinner.playerName + " wins";
+        }
+        
 
         // Update HUD win counter
         foreach (var player in playerList)
@@ -309,15 +317,46 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckMaxPlayerHealth()
     {
+        // Copia la lista de jugadores no derrotados
+        var currAlivePlayers = new List<Robot_Controller>();
+
+        foreach (var player in playerList)
+        {
+            currAlivePlayers.Add(player);
+        }
+
+        // La ordena por salud, de mayor a menor
+        currAlivePlayers.Sort();
+
+        // Check if there are a tie (at least the two first players with more health have the same health)
+        if (currAlivePlayers[0].Health == currAlivePlayers[1].Health)
+        {
+            currentWinner = null;
+        }
+        else
+        {
+            currentWinner = currAlivePlayers[0];
+            currentWinner.WinCount++;
+        }
+    }
+
+    private void CheckMaxPlayerHealth2()
+    {
         Robot_Controller currMaxHealthRobot = default;
         float currMaxHealth = 0;
+        float currSecondMaxHealth = 0;
 
         foreach (var player in playerList)
         {
             if (player.Health > currMaxHealth)
             {
+
                 currMaxHealth = player.Health;
                 currMaxHealthRobot = player;
+            }
+            else if (true)
+            {
+
             }
         }
 

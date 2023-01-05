@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Robot_Controller : MonoBehaviour, IDamageable
+public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Controller>
 {
     [Header("Stats")]
     [SerializeField] private float movementSpeed;
@@ -221,4 +222,17 @@ public class Robot_Controller : MonoBehaviour, IDamageable
     }
 
     #endregion
+
+    // 0 = both the numbers are equal
+    // 1 = second number is smaller
+    // -1 = first number is smaller
+    public int CompareTo(Robot_Controller other)
+    {
+        if (null == other)
+            return 1;
+        int result = other.Health.CompareTo(this.Health);
+
+        // string.Compare is safe when Id is null 
+        return result;
+    }
 }
