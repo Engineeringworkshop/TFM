@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class EndGamePanelController : MonoBehaviour
@@ -21,24 +20,4 @@ public class EndGamePanelController : MonoBehaviour
         endGamePanelObject.SetActive(true);
         winnerNameText.text = winnerName;
     }
-
-    #region Buttons methods
-
-    public void PlayAgainButton()
-    {
-        // Debug
-        print("Play again button pulsed");
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ExitAppButton()
-    {
-        // Debug
-        print("Exit app");
-
-        Application.Quit();
-    }
-
-    #endregion
 }

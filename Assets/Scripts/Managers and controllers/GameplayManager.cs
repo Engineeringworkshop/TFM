@@ -15,10 +15,12 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private BlackPanelController blackPanelController;
     [SerializeField] private EndGamePanelController endGamePanelController;
+    [SerializeField] private PauseMenuController pauseMenuController;
 
     [SerializeField] private List<Robot_Controller> playerList = new List<Robot_Controller>();
 
     [SerializeField] private Robot_Controller currentWinner;
+
     public List<Robot_Controller> PlayerList 
     {
         get
@@ -118,6 +120,11 @@ public class GameplayManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GameStartCoroutine());
+    }
+
+    private void Update()
+    {
+        CheckControls();
     }
 
     #region Gameplay logic
@@ -249,13 +256,18 @@ public class GameplayManager : MonoBehaviour
         endGamePanelController.LoadEndGamePanel(currentWinner.playerName);
     }
 
-    IEnumerator TimeCounter()
+    private IEnumerator TimeCounter()
     {
         var oneSecondTimer = new WaitForSecondsRealtime(1f);
 
-        for (int i = 0; i < roundTime + 1; i++)
+        for (int i = 0; i < roundTime + 1;)
         {
-            timeText.text = ((int)roundTime - i).ToString();
+            if (!IsPaused)
+            {
+                timeText.text = ((int)roundTime - i).ToString();
+                i++;
+            }
+
             yield return oneSecondTimer;
         }
 
@@ -267,6 +279,16 @@ public class GameplayManager : MonoBehaviour
     #endregion
 
     #region Auxiliar methods
+
+    private void CheckControls()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseGame();
+
+            pauseMenuController.ToggleGameMenu(IsPaused);
+        }
+    }
 
     private void ResetRobots()
     {
@@ -340,28 +362,16 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    private void CheckMaxPlayerHealth2()
+    private void TogglePauseGame()
     {
-        Robot_Controller currMaxHealthRobot = default;
-        float currMaxHealth = 0;
-        float currSecondMaxHealth = 0;
+        IsPaused = !IsPaused;
 
-        foreach (var player in playerList)
+        if (IsPaused)
         {
-            if (player.Health > currMaxHealth)
+            if (OnGamePaused != null)
             {
-
-                currMaxHealth = player.Health;
-                currMaxHealthRobot = player;
-            }
-            else if (true)
-            {
-
+                OnGamePaused();
             }
         }
-
-        currentWinner = currMaxHealthRobot;
-
-        currentWinner.WinCount++;
     }
 }

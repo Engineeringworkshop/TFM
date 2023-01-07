@@ -61,3 +61,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Eflatun.SceneReference auto-generated map file
+**/[Aa]ssets/Resources/Eflatun/SceneReference/SceneGuidToPathMap.generated.json
+**/[Aa]ssets/Resources/Eflatun/SceneReference/SceneGuidToPathMap.generated.json.meta

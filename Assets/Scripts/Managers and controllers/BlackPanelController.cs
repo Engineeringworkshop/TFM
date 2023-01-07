@@ -14,10 +14,16 @@ public class BlackPanelController : MonoBehaviour
 
     private WaitForSecondsRealtime fadeTimer;
 
+    private void OnValidate()
+    {
+        if (blackPanelImage == null)
+        {
+            blackPanelImage = blackPanel.GetComponent<Image>();
+        }
+    }
+
     private void Awake()
     {
-        blackPanelImage = blackPanel.GetComponent<Image>();
-
         fadeTimer = new WaitForSecondsRealtime(defaultFadeTime);
 
         blackPanel.SetActive(false);
