@@ -6,35 +6,38 @@ using UnityEngine;
 public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Controller>
 {
     [Header("Stats")]
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float maxHealth;
-    [SerializeField] public string playerName;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackDamage;
+    [SerializeField] public Robot_Data robotData;
     [SerializeField] private Transform startPosition;
-
-    [Header("Controls")]
-    [SerializeField] private KeyCode moveLeftKey;
-    [SerializeField] private KeyCode moveRightKey;
-    [SerializeField] private KeyCode attackKey;
-    [SerializeField] private KeyCode defenseKey;
 
     [Header("References")]
     [SerializeField] public PlayerHUDController playerHUD;
+    [SerializeField] private Animator animator;
+    [SerializeField] public RobotAnimatorController robotAnimatorController;
 
     [Header("Debug")]
-    [SerializeField] private float moveInput;
+    [SerializeField] private int moveDirection;
 
     // Properties
     public float Health { get; private set; }
+    public bool IsDefending { get; set; }
     public bool IsDefeated { get; private set; }
     public int WinCount { get; set; }
+    public float MoveInput { get; set; }
+
+    // State machine
+    public Robot_StateMachine RobotStateMachine { get; private set; }
+    public Robot_IdleState RobotIdleState { get; private set; }
+    public Robot_WalkState RobotWalkState { get; private set; }
+    public Robot_AttackState RobotAttackState { get; private set; }
+    public Robot_DefenseState RobotDefenseState { get; private set; }
+
 
     // Components
     private Rigidbody rb;
+    private AudioSource audioSource;
 
     // Variables
-    private Vector3 movement;
+    public Vector3 Movement { get; private set; }
 
     // Events
     public delegate void Defeated(Robot_Controller robot);
@@ -55,6 +58,18 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+
+        // State machine
+        RobotStateMachine = new Robot_StateMachine();
+        RobotIdleState = new Robot_IdleState(this, RobotStateMachine, robotData);
+        RobotWalkState = new Robot_WalkState(this, RobotStateMachine, robotData, animator);
+        RobotAttackState = new Robot_AttackState(this, RobotStateMachine, robotData, animator);
+        RobotDefenseState = new Robot_DefenseState(this, RobotStateMachine, robotData, animator);
+
+        RobotStateMachine.Initialize(RobotIdleState);
+
+        IsDefending = false;
     }
 
     private void Start()
@@ -66,11 +81,10 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     void Update()
     {
+        RobotStateMachine.CurrentState.LogicUpdate();
+
         if (!GameplayManager.IsPaused)
         {
-            // Check player inputs
-            CheckInputs();
-
             // Calculate movement vector 
             CalculateMovement();
         }
@@ -78,73 +92,30 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     private void FixedUpdate()
     {
+        RobotStateMachine.CurrentState.PhysicsUpdate();
+
         // Move character
-        MoveCharacter(movement);
+        MoveCharacter(Movement);
     }
 
     #endregion
 
     #region Methods
 
-    private void CheckInputs()
-    {
-        // Left movement control
-        if (Input.GetKeyDown(moveLeftKey))
-        {
-            print("Left key pushed by " + name);
-
-            moveInput = 1;
-        }
-        else if (Input.GetKeyUp(moveLeftKey))
-        {
-            print("Left key released by " + name);
-
-            moveInput = 0;
-        }
-
-        // Right movement control
-        if (Input.GetKeyDown(moveRightKey))
-        {
-            print("Right key pushed by " + name);
-
-            moveInput = -1;
-        }
-        else if (Input.GetKeyUp(moveRightKey))
-        {
-            print("Right key released by " + name);
-
-            moveInput = 0;
-        }
-
-
-        // Attack control
-        if (Input.GetKeyDown(attackKey))
-        {
-            print("Attack key pushed by " + name);
-
-            AttackTrigger();
-        }
-
-        // Defense control
-        if (Input.GetKeyDown(defenseKey))
-        {
-            print("Defense key pushed  by " + name);
-        }
-
-        // Debug
-        // print("Move input: " + moveInput);
-    }
-
     private void CalculateMovement()
     {
-        movement = new Vector3(0, 0, moveInput).normalized;
+        Movement = new Vector3(0, 0, MoveInput).normalized;
+        moveDirection = Math.Sign(MoveInput);
     }
 
     private void MoveCharacter(Vector3 direction)
     {
+        float currSpeed = robotData.movementSpeed * Time.fixedDeltaTime;
         // We multiply the 'speed' variable to the Rigidbody's velocity...
         // and also multiply 'Time.fixedDeltaTime' to keep the movement consistant on all devices
-        rb.velocity = - direction * movementSpeed * Time.fixedDeltaTime;
+        rb.velocity = - direction * currSpeed;
+
+        animator.SetFloat("speed", Mathf.Abs(MoveInput));
     }
 
     /// <summary>
@@ -153,8 +124,8 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     private void EnterPause()
     {
         // Reset move input to 0 and movement to (0,0,0)
-        moveInput = 0;
-        movement = Vector3.zero;
+        MoveInput = 0;
+        Movement = Vector3.zero;
     }
 
     #endregion
@@ -167,7 +138,14 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     /// <param name="damage"></param>
     public void ApplyDamage(float damage)
     {
-        Health = Mathf.Max(0, Health - damage);
+        float damageToApply = damage;
+
+        if (IsDefending)
+        {
+            damageToApply = damage * (1f - robotData.armor);
+        }
+
+        Health = Mathf.Max(0, Health - damageToApply);
         playerHUD.SetHealthBarValue(Health);
 
         if (Health <= 0)
@@ -188,7 +166,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     public void AttackTrigger()
     {
         // Check targets on range
-       Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange);
+       Collider[] colliders = Physics.OverlapSphere(transform.position, robotData.attackRange);
 
         // If there are targets in range try to get IDamageable interface
         foreach (var collider in colliders)
@@ -202,7 +180,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
                 // Apply damage to the target
                 if (obj != null)
                 {
-                    obj.ApplyDamage(attackDamage);
+                    obj.ApplyDamage(robotData.attackDamage);
                 }
             }
         }
@@ -212,10 +190,10 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     {
         IsDefeated = false;
 
-        Health = maxHealth;
-        playerHUD.SetMaxHealthValue(maxHealth);
+        Health = robotData.maxHealth;
+        playerHUD.SetMaxHealthValue(robotData.maxHealth);
         playerHUD.SetHealthBarValue(Health);
-        playerHUD.SetPlayerName(playerName);
+        playerHUD.SetPlayerName(robotData.playerName);
 
         transform.position = startPosition.position;
         transform.rotation = startPosition.rotation;
@@ -234,5 +212,15 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
         // string.Compare is safe when Id is null 
         return result;
+    }
+
+    public IEnumerator WaitAnimationToFinish(Robot_State nextState)
+    {
+        // Wait for the next frame to get the animator info (to wait the next animator state to load)
+        yield return null;
+
+        yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        RobotStateMachine.ChangeState(nextState);
     }
 }

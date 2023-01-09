@@ -6,41 +6,34 @@ public class Robot_State
 {
     protected Robot_Controller robotController;
     protected Robot_StateMachine stateMachine;
+    protected Robot_Data robotData;
 
-    protected float startTime; // Referencia para saber cuanto lleva en cada estado
-
-    private string animBoolName; // En esta variable se guardará informacion para las animaciones, así el animator sabrá que animación deberá usar.
-
-    public Robot_State(Robot_Controller robotController, Robot_StateMachine stateMachine)
+    public Robot_State(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData)
     {
         this.robotController = robotController;
         this.stateMachine = stateMachine;
+        this.robotData = robotData;
     }
 
-    // Enter() se ejecutará al entrar en un estado
+    // Enter() will executed when enter the state
     public virtual void Enter()
     {
-        Debug.Log("Zombie1: " + animBoolName);
+        Debug.Log("Enter state" + this);
     }
 
-    // Exit() se ejecutará al salir del estado
+    // Exit() will executed when exit the state
     public virtual void Exit()
     {
-        // Comprobamos si el cambio tiene animación para evitar advertencias 
-        if (animBoolName != "")
-        {
-            //zombie1.Anim.SetBool(animBoolName, false); // ponemos el animator en false al salir
-        }
 
     }
 
-    // LogicUpdate() se ejecutará en cada Update()
+    // LogicUpdate() will executed on Update()
     public virtual void LogicUpdate()
     {
 
     }
 
-    // PhysicsUpdate se ejecutará en cada FixedUpdate()
+    // PhysicsUpdate will executed on FixedUpdate()
     public virtual void PhysicsUpdate()
     {
 

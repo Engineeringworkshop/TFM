@@ -70,7 +70,6 @@ public class GameplayManager : MonoBehaviour
     private bool hasWinner;
 
     // Events
-    // Events
     public delegate void GamePaused();
     public static event GamePaused OnGamePaused;
 
@@ -231,7 +230,7 @@ public class GameplayManager : MonoBehaviour
         }
         else
         {
-            messageText.text = currentWinner.playerName + " wins";
+            messageText.text = currentWinner.robotData.playerName + " wins";
         }
         
 
@@ -253,7 +252,7 @@ public class GameplayManager : MonoBehaviour
         // Start Fade in
         yield return StartCoroutine(blackPanelController.FadeIn(0, endGameFadeValue, endGameFadeTime));
 
-        endGamePanelController.LoadEndGamePanel(currentWinner.playerName);
+        endGamePanelController.LoadEndGamePanel(currentWinner.robotData.playerName);
     }
 
     private IEnumerator TimeCounter()
