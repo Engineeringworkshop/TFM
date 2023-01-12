@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 100
   playerName: Player1
   attackRange: 50
-  attackDamage: 10
+  attackDamage: 50
   armor: 0.8
   moveLeftKey: 97
   moveRightKey: 100

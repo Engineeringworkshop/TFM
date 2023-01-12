@@ -16,6 +16,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private BlackPanelController blackPanelController;
     [SerializeField] private EndGamePanelController endGamePanelController;
     [SerializeField] private PauseMenuController pauseMenuController;
+    [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private List<Robot_Controller> playerList = new List<Robot_Controller>();
 
@@ -44,6 +45,12 @@ public class GameplayManager : MonoBehaviour
     private WaitForSecondsRealtime roundTextTimer;
     private WaitForSecondsRealtime roundFightTimer;
     private WaitForSecondsRealtime roundEndRoundTextTimer;
+
+    [Header("Audio files")]
+    [SerializeField] private AudioClip roundPrepareAudio;
+    [SerializeField] private AudioClip fightAudio;
+    [SerializeField] private AudioClip tiedAudio;
+    [SerializeField] private AudioClip perfectAudio;
 
     [Header("Debug")]
     [SerializeField] private int roundNumber;
@@ -83,6 +90,11 @@ public class GameplayManager : MonoBehaviour
         if (endGamePanelController == null)
         {
             endGamePanelController = GetComponent<EndGamePanelController>();
+        }
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -185,10 +197,18 @@ public class GameplayManager : MonoBehaviour
 
         // Display round text and wait to show it
         messageText.text = "Round " + roundNumber;
+
+        // Reproduce sound
+        audioSource.PlayOneShot(roundPrepareAudio);
+
         yield return roundTextTimer;
 
         // Display fight text and wait to show it
         messageText.text = "Fight!";
+
+        // Reproduce sound
+        audioSource.PlayOneShot(fightAudio);
+
         yield return roundFightTimer;
     }
 
@@ -227,10 +247,19 @@ public class GameplayManager : MonoBehaviour
         if (currentWinner == null)
         {
             messageText.text = "Tied round";
+
+            // Reproduce sound
+            audioSource.PlayOneShot(tiedAudio);
         }
         else
         {
             messageText.text = currentWinner.robotData.playerName + " wins";
+
+            if (currentWinner.Health == currentWinner.robotData.maxHealth)
+            {
+                // Reproduce sound
+                audioSource.PlayOneShot(perfectAudio);
+            }
         }
         
 
@@ -284,8 +313,6 @@ public class GameplayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseGame();
-
-            pauseMenuController.ToggleGameMenu(IsPaused);
         }
     }
 
@@ -361,7 +388,7 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    private void TogglePauseGame()
+    public void TogglePauseGame()
     {
         IsPaused = !IsPaused;
 
@@ -372,5 +399,7 @@ public class GameplayManager : MonoBehaviour
                 OnGamePaused();
             }
         }
+
+        pauseMenuController.ToggleGameMenu(IsPaused);
     }
 }

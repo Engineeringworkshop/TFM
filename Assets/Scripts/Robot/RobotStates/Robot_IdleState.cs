@@ -23,30 +23,33 @@ public class Robot_IdleState : Robot_State
     {
         base.LogicUpdate();
 
-        if (Input.GetKeyDown(robotData.moveLeftKey))
+        if (!GameplayManager.IsPaused)
         {
-            stateMachine.ChangeState(robotController.RobotWalkState);
+            if (Input.GetKeyDown(robotData.moveLeftKey))
+            {
+                stateMachine.ChangeState(robotController.RobotWalkState);
 
-            robotController.MoveInput = 1;
-        }
+                robotController.MoveInput = 1;
+            }
 
-        if (Input.GetKeyDown(robotData.moveRightKey))
-        {
-            stateMachine.ChangeState(robotController.RobotWalkState);
+            if (Input.GetKeyDown(robotData.moveRightKey))
+            {
+                stateMachine.ChangeState(robotController.RobotWalkState);
 
-            robotController.MoveInput = -1;
-        }
+                robotController.MoveInput = -1;
+            }
 
-        // Attack control
-        if (Input.GetKeyDown(robotData.attackKey))
-        {
-            stateMachine.ChangeState(robotController.RobotAttackState);
-        }
+            // Attack control
+            if (Input.GetKeyDown(robotData.attackKey))
+            {
+                stateMachine.ChangeState(robotController.RobotAttackState);
+            }
 
-        // Defense control
-        if (Input.GetKeyDown(robotData.defenseKey))
-        {
-            stateMachine.ChangeState(robotController.RobotDefenseState);
+            // Defense control
+            if (Input.GetKeyDown(robotData.defenseKey))
+            {
+                stateMachine.ChangeState(robotController.RobotDefenseState);
+            }
         }
     }
 

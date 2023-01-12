@@ -5,25 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class ButtonMethods : MonoBehaviour
 {
-    #region Buttons methods
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private GameplayManager gameplayManager;
 
-    static public void ResumeGame()
+    private void OnValidate()
     {
+        if (audioManager == null)
+        {
+            audioManager = GetComponent<AudioManager>();
+        }
 
+        if (gameplayManager == null)
+        {
+            gameplayManager = GetComponent<GameplayManager>();
+        }
     }
 
-    static public void RestartGameButton()
+    #region Buttons methods
+
+    public void ResumeGame()
+    {
+        // Reproduce click sound
+        audioManager.ReproduceClickSoundOnce();
+
+        gameplayManager.TogglePauseGame();
+    }
+
+    public void RestartGameButton()
     {
         // Debug
-        Debug.Log("Restart game");
+        //Debug.Log("Restart game");
+
+        // Reproduce click sound
+        audioManager.ReproduceClickSoundOnce();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    static public void ExitAppButton()
+    public void ExitAppButton()
     {
         // Debug
         Debug.Log("Exit app");
+
+        // Reproduce click sound
+        audioManager.ReproduceClickSoundOnce();
 
         Application.Quit();
     }
