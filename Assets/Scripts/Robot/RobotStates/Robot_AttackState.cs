@@ -6,14 +6,19 @@ public class Robot_AttackState : Robot_State
 {
     private Animator animator;
 
-    public Robot_AttackState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator) : base(robotController, stateMachine, robotData)
+    private AudioSource audioSource;
+
+    public Robot_AttackState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator, AudioSource audioSource) : base(robotController, stateMachine, robotData)
     {
         this.animator = animator;
+        this.audioSource = audioSource;
     }
 
     public override void Enter()
     {
         base.Enter();
+
+        robotController.ReproduceSound(audioSource, robotData.attackNoImpactSound, false);
 
         animator.SetBool("attack", true);
 

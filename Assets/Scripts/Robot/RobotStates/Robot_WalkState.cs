@@ -6,19 +6,26 @@ public class Robot_WalkState : Robot_State
 {
     private Animator animator;
 
-    public Robot_WalkState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator) : base(robotController, stateMachine, robotData)
+    private AudioSource audioSource;
+
+    public Robot_WalkState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator, AudioSource audioSource) : base(robotController, stateMachine, robotData)
     {
         this.animator = animator;
+        this.audioSource = audioSource;
     }
 
     public override void Enter()
     {
         base.Enter();
+
+        robotController.ReproduceSound(audioSource, robotData.walkSound, true);
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        audioSource.Stop();
     }
 
     public override void LogicUpdate()

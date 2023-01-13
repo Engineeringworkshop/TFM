@@ -14,6 +14,11 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] private Animator animator;
     [SerializeField] public RobotAnimatorController robotAnimatorController;
 
+    [Header("Audio sources")]
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioSource takeDamageAudioSource;
+
     [Header("Debug")]
     [SerializeField] private int moveDirection;
 
@@ -34,7 +39,6 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     // Components
     private Rigidbody rb;
-    private AudioSource audioSource;
 
     // Variables
     public Vector3 Movement { get; private set; }
@@ -57,14 +61,14 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     private void Awake()
     {
+        // Set references
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
 
         // State machine
         RobotStateMachine = new Robot_StateMachine();
         RobotIdleState = new Robot_IdleState(this, RobotStateMachine, robotData);
-        RobotWalkState = new Robot_WalkState(this, RobotStateMachine, robotData, animator);
-        RobotAttackState = new Robot_AttackState(this, RobotStateMachine, robotData, animator);
+        RobotWalkState = new Robot_WalkState(this, RobotStateMachine, robotData, animator, walkAudioSource);
+        RobotAttackState = new Robot_AttackState(this, RobotStateMachine, robotData, animator, attackAudioSource);
         RobotDefenseState = new Robot_DefenseState(this, RobotStateMachine, robotData, animator);
 
         RobotStateMachine.Initialize(RobotIdleState);
@@ -138,12 +142,18 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     /// <param name="damage"></param>
     public void ApplyDamage(float damage)
     {
-        float damageToApply = damage;
+        float damageToApply;
 
         if (IsDefending)
         {
             damageToApply = damage * (1f - robotData.armor);
         }
+        else
+        {
+            damageToApply = damage;
+        }
+
+        ReproduceSound(takeDamageAudioSource, robotData.takeDamageSound, false);
 
         Health = Mathf.Max(0, Health - damageToApply);
         playerHUD.SetHealthBarValue(Health);
@@ -175,12 +185,23 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
             if (collider.gameObject != gameObject)
             {
                 // If collider is not the object try to get IDamageable
-                var obj = collider.GetComponent<IDamageable>();
+                var damageable = collider.GetComponent<IDamageable>();
 
                 // Apply damage to the target
-                if (obj != null)
+                if (damageable != null)
                 {
-                    obj.ApplyDamage(robotData.attackDamage);
+                    var controller = collider.GetComponent<Robot_Controller>();
+
+                    if (controller != null && controller.IsDefending)
+                    {
+                        controller.ReproduceSound(takeDamageAudioSource, robotData.impactDefendedSound, false);
+                    }
+                    else
+                    {
+                        controller.ReproduceSound(takeDamageAudioSource, robotData.impactNotDefendedSound, false);
+                    }
+
+                    damageable.ApplyDamage(robotData.attackDamage);
                 }
             }
         }
@@ -222,5 +243,13 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length);
 
         RobotStateMachine.ChangeState(nextState);
+    }
+
+    public void ReproduceSound(AudioSource audioSource, AudioClip audioClip, bool isLoop)
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClip;
+        audioSource.loop = isLoop;
+        audioSource.Play();
     }
 }

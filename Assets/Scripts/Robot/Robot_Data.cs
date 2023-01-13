@@ -21,8 +21,8 @@ public class Robot_Data : ScriptableObject
 
     [Header("Sounds")]
     public AudioClip walkSound;
-    public AudioClip impactSound;
-    public AudioClip takeDamage;
-
-
+    public AudioClip attackNoImpactSound;
+    public AudioClip impactNotDefendedSound;
+    public AudioClip impactDefendedSound;
+    public AudioClip takeDamageSound;
 }
