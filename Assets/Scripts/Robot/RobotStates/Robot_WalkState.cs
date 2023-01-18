@@ -25,7 +25,11 @@ public class Robot_WalkState : Robot_State
     {
         base.Exit();
 
+        // Stop walking sound
         audioSource.Stop();
+
+        // Stop robot movement
+        robotController.MoveInput = 0;
     }
 
     public override void LogicUpdate()
@@ -33,13 +37,6 @@ public class Robot_WalkState : Robot_State
         base.LogicUpdate();
 
         if (Input.GetKeyUp(robotData.moveLeftKey) || Input.GetKeyUp(robotData.moveRightKey))
-        {
-            stateMachine.ChangeState(robotController.RobotIdleState);
-
-            robotController.MoveInput = 0;
-        }
-
-        if (Input.GetKeyUp(robotData.moveRightKey))
         {
             stateMachine.ChangeState(robotController.RobotIdleState);
         }

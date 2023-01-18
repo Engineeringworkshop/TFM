@@ -17,7 +17,7 @@ MonoBehaviour:
   playerName: Player2
   attackRange: 1
   attackDamage: 10
-  armor: 0.8
+  armor: 1
   moveLeftKey: 106
   moveRightKey: 108
   attackKey: 104

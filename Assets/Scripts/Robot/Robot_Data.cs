@@ -11,7 +11,7 @@ public class Robot_Data : ScriptableObject
     public string playerName;
     public float attackRange;
     public float attackDamage;
-    [Range(0f, 0.8f)] public float armor;
+    [Range(0f, 1f)] public float armor;
 
     [Header("Controls")]
     public KeyCode moveLeftKey;
