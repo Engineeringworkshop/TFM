@@ -6,9 +6,9 @@ public class Robot_State
 {
     protected Robot_Controller robotController;
     protected Robot_StateMachine stateMachine;
-    protected Robot_Data robotData;
+    protected Character_Data robotData;
 
-    public Robot_State(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData)
+    public Robot_State(Robot_Controller robotController, Robot_StateMachine stateMachine, Character_Data robotData)
     {
         this.robotController = robotController;
         this.stateMachine = stateMachine;

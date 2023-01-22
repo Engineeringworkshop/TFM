@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: 89fbd3af9dd15f54ba4838d9a887a1f8
+guid: b241e74381b86a84281d4a845084cb67
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -459297238783104991
-    second: Menu panel_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -44,7 +41,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -92,28 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Menu panel_0
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 88
-        width: 526
-        height: 628
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 60, y: 62, z: 59, w: 61}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 128e304489f30a9f0800000000000000
-      internalID: -459297238783104991
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

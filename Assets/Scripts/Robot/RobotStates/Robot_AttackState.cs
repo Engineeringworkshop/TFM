@@ -8,7 +8,7 @@ public class Robot_AttackState : Robot_State
 
     private AudioSource audioSource;
 
-    public Robot_AttackState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator, AudioSource audioSource) : base(robotController, stateMachine, robotData)
+    public Robot_AttackState(Robot_Controller robotController, Robot_StateMachine stateMachine, Character_Data robotData, Animator animator, AudioSource audioSource) : base(robotController, stateMachine, robotData)
     {
         this.animator = animator;
         this.audioSource = audioSource;

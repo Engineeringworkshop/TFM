@@ -1649,7 +1649,7 @@ GameObject:
   - component: {fileID: 479289131}
   - component: {fileID: 479289135}
   m_Layer: 0
-  m_Name: Robot2
+  m_Name: Robot_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

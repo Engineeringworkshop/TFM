@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/Player Data")]
-public class Robot_Data : ScriptableObject
+public class Character_Data : ScriptableObject
 {
+    [Header("Character atributes")]
+    public string characterName;
+    public Sprite characterPortrait;
+    public bool isLocked;
+
     [Header("Robot info")]
     public float movementSpeed;
     public float maxHealth;

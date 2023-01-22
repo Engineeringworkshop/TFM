@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Robot_IdleState : Robot_State
 {
-    public Robot_IdleState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData) : base(robotController, stateMachine, robotData)
+    public Robot_IdleState(Robot_Controller robotController, Robot_StateMachine stateMachine, Character_Data robotData) : base(robotController, stateMachine, robotData)
     {
 
     }

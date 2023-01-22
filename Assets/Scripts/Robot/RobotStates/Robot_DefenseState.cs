@@ -6,7 +6,7 @@ public class Robot_DefenseState : Robot_State
 {
     private Animator animator;
 
-    public Robot_DefenseState(Robot_Controller robotController, Robot_StateMachine stateMachine, Robot_Data robotData, Animator animator) : base(robotController, stateMachine, robotData)
+    public Robot_DefenseState(Robot_Controller robotController, Robot_StateMachine stateMachine, Character_Data robotData, Animator animator) : base(robotController, stateMachine, robotData)
     {
         this.animator = animator;
     }

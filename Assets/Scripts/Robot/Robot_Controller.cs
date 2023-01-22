@@ -6,7 +6,7 @@ using UnityEngine;
 public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Controller>
 {
     [Header("Stats")]
-    [SerializeField] public Robot_Data robotData;
+    [SerializeField] public Character_Data robotData;
     [SerializeField] private Transform startPosition;
 
     [Header("References")]

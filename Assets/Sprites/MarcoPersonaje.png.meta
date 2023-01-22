@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 89fbd3af9dd15f54ba4838d9a887a1f8
+guid: 11263ad2485031d4fbbb6200079fd6b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -459297238783104991
-    second: Menu panel_0
+      213: 3467045767408832253
+    second: MarcoPersonaje_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -94,22 +94,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Menu panel_0
+      name: MarcoPersonaje_0
       rect:
         serializedVersion: 2
-        x: 135
-        y: 88
-        width: 526
-        height: 628
+        x: 0
+        y: 0
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 60, y: 62, z: 59, w: 61}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 128e304489f30a9f0800000000000000
-      internalID: -459297238783104991
+      spriteID: dfecc6a91cb6d1030800000000000000
+      internalID: 3467045767408832253
       vertices: []
       indices: 
       edges: []
@@ -117,7 +117,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d43b5e7fe02966f4ba0c1630d6905dd8
     internalID: 0
     vertices: []
     indices: 
