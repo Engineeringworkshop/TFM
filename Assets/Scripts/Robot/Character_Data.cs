@@ -30,4 +30,7 @@ public class Character_Data : ScriptableObject
     public AudioClip impactNotDefendedSound;
     public AudioClip impactDefendedSound;
     public AudioClip takeDamageSound;
+
+    [Header("Effects")]
+    public ParticleSystem impactEffect;
 }

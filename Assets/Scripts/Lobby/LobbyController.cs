@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
@@ -12,9 +13,11 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private MapSelectorController mapSelectorController;
 
     [Header("Sound")]
+    [SerializeField] private AudioClip playersReadyAudio;
     [SerializeField] private AudioClip playersNotReadyAudio;
 
-    private AudioSource audioSource;
+    [Header("Debug")]
+    [SerializeField] private AudioSource audioSource;
 
     private void OnValidate()
     {
@@ -34,13 +37,33 @@ public class LobbyController : MonoBehaviour
         // If both players are ready load map
         if (player1.IsPlayerReady && player2.IsPlayerReady)
         {
-            // Load map
-            mapSelectorController.LoadSelectedScene();
+            StartCoroutine(LoadSelectedScene());
         }
         // If not reproduce sound "¡Players not ready!
         else
         {
             audioSource.PlayOneShot(playersNotReadyAudio);
         }
+    }
+
+    private IEnumerator LoadSelectedScene()
+    {
+        audioSource.PlayOneShot(playersReadyAudio);
+
+        yield return new WaitForSecondsRealtime(playersReadyAudio.length);
+        
+        mapSelectorController.LoadSelectedScene();
+    }
+
+    public void ReturnToGameMenu()
+    {
+        StartCoroutine(ReturnToGameMenuCoroutine());
+    }
+
+    private IEnumerator ReturnToGameMenuCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        SceneManager.LoadScene(0);
     }
 }

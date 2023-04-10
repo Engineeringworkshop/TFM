@@ -13,11 +13,15 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] public PlayerHUDController playerHUD;
     [SerializeField] private Animator animator;
     [SerializeField] public RobotAnimatorController robotAnimatorController;
+    [SerializeField] private CameraControl cameraControl;
 
     [Header("Audio sources")]
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private AudioSource attackAudioSource;
     [SerializeField] private AudioSource takeDamageAudioSource;
+
+    [Header("Transforms")]
+    [SerializeField] private Transform impactEffectTransform;
 
     [Header("Debug")]
     [SerializeField] private int moveDirection;
@@ -120,6 +124,8 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         rb.velocity = - direction * currSpeed;
 
         animator.SetFloat("speed", Mathf.Abs(MoveInput));
+        animator.SetFloat("direction", MoveInput * -1);
+
     }
 
     /// <summary>
@@ -195,13 +201,21 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
                     if (controller != null && controller.IsDefending)
                     {
                         controller.ReproduceSound(takeDamageAudioSource, robotData.impactDefendedSound, false);
+
                     }
                     else
                     {
                         controller.ReproduceSound(takeDamageAudioSource, robotData.impactNotDefendedSound, false);
                     }
 
+                    // Create impact effect
+                    CreateEffect(robotData.impactEffect, impactEffectTransform);
+
+                    // Apply damage to target
                     damageable.ApplyDamage(robotData.attackDamage);
+
+                    // Start camera shake
+                    cameraControl.StartCameraShake();
                 }
             }
         }
@@ -251,5 +265,19 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         audioSource.clip = audioClip;
         audioSource.loop = isLoop;
         audioSource.Play();
+    }
+
+    public void CreateEffect(ParticleSystem particleSystem, Transform transform)
+    {
+        var effect = Instantiate(particleSystem, transform.position, transform.rotation, null);
+
+        StartCoroutine(DestroyObjectOnTime(effect, effect.main.duration));
+    }
+
+    private IEnumerator DestroyObjectOnTime(UnityEngine.Object obj, float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+
+        Destroy(obj);
     }
 }

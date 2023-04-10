@@ -12,6 +12,8 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
+    private bool isShaking;
+
     private void OnValidate()
     {
         if (gameplayManager == null)
@@ -25,6 +27,12 @@ public class CameraControl : MonoBehaviour
         }
 
     }
+
+    private void Awake()
+    {
+        isShaking = false;
+    }
+
     private void Start()
     {
         SetCameraPosition();
@@ -93,5 +101,26 @@ public class CameraControl : MonoBehaviour
             / Mathf.Tan(Mathf.Deg2Rad * mainCamera.fieldOfView/2);
 
         return Mathf.Max(cameraDistance + xOffset, minDistance);
+    }
+
+    public void StartCameraShake()
+    {
+        StartCoroutine(CameraShake(Random.Range(0.1f, 0.5f)));
+    }
+
+    private IEnumerator CameraShake(float time)
+    {
+        float randomShake = Random.Range(0.1f, 0.5f);
+        float timeCounter = 0f;
+
+        do
+        {
+            mainCamera.transform.localPosition = mainCamera.transform.localPosition + Random.insideUnitSphere * randomShake;
+
+            timeCounter += Time.deltaTime;
+
+            yield return null;
+
+        } while (timeCounter < time);
     }
 }
