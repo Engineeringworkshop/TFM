@@ -2642,10 +2642,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b497091aede689a4292f06b574b22cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReferenceRadius: {fileID: 0}
-  currentTargetList: []
-  cursor: {fileID: 0}
-  target: {fileID: 0}
+  targetReferenceRadius: {fileID: 836390662}
+  currentTargetList:
+  - {fileID: 11400000, guid: 46932245e80e1734fb2a4a6c66d20737, type: 2}
+  - {fileID: 11400000, guid: 4e32437b71d23374f97159b441be13e8, type: 2}
+  cursor: {fileID: 309294334}
+  targetObj: {fileID: 1851093832}
+  targetSpawnedList: []
   referenceRadius: 0
 --- !u!1 &705507993
 GameObject:
@@ -3403,8 +3406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -96.5, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &853046604 stripped
 MonoBehaviour:
@@ -6542,7 +6545,6 @@ GameObject:
   - component: {fileID: 1851093833}
   - component: {fileID: 1851093837}
   - component: {fileID: 1851093836}
-  - component: {fileID: 1851093835}
   - component: {fileID: 1851093834}
   m_Layer: 5
   m_Name: Target
@@ -6583,18 +6585,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1851093835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851093832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1851093836
 MonoBehaviour:
   m_ObjectHideFlags: 0
