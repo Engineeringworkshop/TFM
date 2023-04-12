@@ -26,49 +26,22 @@ public class DynamicComboManager : MonoBehaviour
     {
         // Set the initial target position
         float randomAngle = Random.Range(0, 2 * Mathf.PI);
+        float spawnAngle = Mathf.Deg2Rad * (360 / currentTargetList.Count);
 
-        bool isFirstTarget = false;
-
-        Vector3 currentPosition;
-
-        Vector3 previousPosition = transform.position;
-
-        foreach (var target in currentTargetList)
+        for (int i = 0; i < currentTargetList.Count; i++)
         {
-            if (!isFirstTarget)
-            {
-                // Spawn target
-                GameObject currentTarget = Instantiate(targetObj, transform.position, transform.rotation, cursor.transform.parent);
+            // Calculate target position
+            Vector3 currentPosition = new Vector3(transform.position.x + referenceRadius * Mathf.Cos(randomAngle + spawnAngle * i), transform.position.y + referenceRadius * Mathf.Sin(randomAngle + spawnAngle * i), transform.position.z);
 
-                // Move target to the final position
-                currentPosition = new Vector3(transform.position.x + referenceRadius * Mathf.Cos(randomAngle), transform.position.y + referenceRadius * Mathf.Sin(randomAngle), transform.position.z);
+            // Spawn target
+            GameObject currentTarget = Instantiate(targetObj, currentPosition, transform.rotation, cursor.transform.parent);
 
-                Debug.Log("Parent 1 pos: " + transform.position + " Calculated pos: " + currentPosition);
+            // Ad target to the target list
+            targetSpawnedList.Add(currentTarget);
 
-                currentTarget.transform.position = currentPosition;
-
-                previousPosition = currentPosition;
-
-                Debug.Log("Target 1 pos: " + currentPosition);
-
-                isFirstTarget = true;
-
-                targetSpawnedList.Add(currentTarget);
-            }
-            else
-            {
-                // Spawn target
-                GameObject currentTarget = Instantiate(targetObj, previousPosition, transform.rotation, cursor.transform.parent);
-
-                // Rotate target
-                currentTarget.transform.Rotate(cursor.transform.forward, 360/currentTargetList.Count);
-
-                currentPosition = currentTarget.transform.position;
-
-                targetSpawnedList.Add(currentTarget);
-
-                Debug.Log("Target 2 pos: " + currentPosition);
-            }
+            // Debug
+            // Debug.Log("Parent " + i + " pos: " + transform.position + " Calculated pos: " + currentPosition);
+            // Debug.Log("Target " + i + " pos: " + currentPosition);
         }
     }
 
