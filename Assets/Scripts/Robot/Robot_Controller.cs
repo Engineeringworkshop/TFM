@@ -2,9 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Controller>
 {
+    [Header("Configuration")]
+    [Header("Input direction -1 o 1")]
+    [SerializeField] private int moveDirection;
+    [SerializeField] public readonly float movementDeadzone = 0.1f;
+
     [Header("Stats")]
     [SerializeField] public Character_Data robotData;
     [SerializeField] private Transform startPosition;
@@ -23,13 +29,11 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [Header("Transforms")]
     [SerializeField] private Transform impactEffectTransform;
 
-    [Header("Debug")]
-    [SerializeField] private int moveDirection;
-
     // Properties
     public float Health { get; private set; }
     public bool IsDefending { get; set; }
     public bool IsDefeated { get; private set; }
+    public bool IsAttacking { get; private set; }
     public int WinCount { get; set; }
     public float MoveInput { get; set; }
 
@@ -91,41 +95,35 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     {
         RobotStateMachine.CurrentState.LogicUpdate();
 
-        if (!GameplayManager.IsPaused)
-        {
-            // Calculate movement vector 
-            CalculateMovement();
-        }
+
     }
 
     private void FixedUpdate()
     {
         RobotStateMachine.CurrentState.PhysicsUpdate();
-
-        // Move character
-        MoveCharacter(Movement);
     }
 
     #endregion
 
     #region Methods
 
-    private void CalculateMovement()
-    {
-        Movement = new Vector3(0, 0, MoveInput).normalized;
-        moveDirection = Math.Sign(MoveInput);
-    }
-
-    private void MoveCharacter(Vector3 direction)
+    /// <summary>
+    /// Method to move the robot
+    /// </summary>
+    public void MoveCharacter()
     {
         float currSpeed = robotData.movementSpeed * Time.fixedDeltaTime;
         // We multiply the 'speed' variable to the Rigidbody's velocity...
         // and also multiply 'Time.fixedDeltaTime' to keep the movement consistant on all devices
-        rb.velocity = - direction * currSpeed;
+        rb.velocity = new Vector3(0, 0, MoveInput).normalized * currSpeed;
+    }
 
-        animator.SetFloat("speed", Mathf.Abs(MoveInput));
-        animator.SetFloat("direction", MoveInput * -1);
-
+    /// <summary>
+    /// Method to stop the robot
+    /// </summary>
+    public void StopCharacter()
+    {
+        rb.velocity = Vector3.zero;
     }
 
     /// <summary>
@@ -221,6 +219,9 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         }
     }
 
+    /// <summary>
+    /// Method to reset robot parameters to default
+    /// </summary>
     public void ResetRobot()
     {
         IsDefeated = false;
@@ -232,6 +233,22 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
         transform.position = startPosition.position;
         transform.rotation = startPosition.rotation;
+    }
+
+    /// <summary>
+    /// Method to tell RobotController that the defense is finished
+    /// </summary>
+    public void DefenseAnimationEnds()
+    {
+        RobotStateMachine.ChangeState(RobotIdleState);
+    }
+
+    /// <summary>
+    /// Method to tell RobotController that the attack is finished
+    /// </summary>
+    public void AttackAnimationEnds()
+    {
+        RobotStateMachine.ChangeState(RobotIdleState);
     }
 
     #endregion
@@ -254,7 +271,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         // Wait for the next frame to get the animator info (to wait the next animator state to load)
         yield return null;
 
-        yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSecondsRealtime(animator.GetCurrentAnimatorStateInfo(0).length*0.9f);
 
         RobotStateMachine.ChangeState(nextState);
     }
@@ -280,4 +297,74 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
         Destroy(obj);
     }
+
+    #region Control methods
+
+    public void OnMovement(InputAction.CallbackContext value)
+    {
+        if (!GameplayManager.IsPaused)
+        {
+            MoveInput = moveDirection * value.ReadValue<float>();
+        }
+        else
+        {
+            MoveInput = 0;
+        }
+         
+        //Debug.Log("Gamepad Right Stick: " + value.ReadValue<float>());
+    }
+
+    public void OnStartCombo(InputAction.CallbackContext value)
+    {
+        if (!GameplayManager.IsPaused)
+        {
+            if (value.started)
+            {
+                
+            }
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext value)
+    {
+        if (!GameplayManager.IsPaused)
+        {
+            if (value.started)
+            {
+                IsAttacking = true;
+                RobotStateMachine.ChangeState(RobotAttackState);
+            }
+        }
+    }
+
+    public void OnDefense(InputAction.CallbackContext value)
+    {
+        if (!GameplayManager.IsPaused)
+        {
+            if (value.started)
+            {
+                Debug.Log("Started");
+
+                IsDefending = true;
+
+                RobotStateMachine.ChangeState(RobotDefenseState);
+            }
+            else if (value.performed)
+            {
+                //Debug.Log("Performed");
+            }
+            else if (value.canceled)
+            {
+                Debug.Log("Canceled");
+
+                IsDefending = false;
+
+                robotAnimatorController.UnFreezeAnimation();
+
+                //StartCoroutine(WaitAnimationToFinish(RobotIdleState));
+            }
+        }
+    }
+
+    #endregion
 }

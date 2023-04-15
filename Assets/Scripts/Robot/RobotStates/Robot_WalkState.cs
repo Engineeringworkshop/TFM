@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Robot_WalkState : Robot_State
 {
@@ -29,33 +31,36 @@ public class Robot_WalkState : Robot_State
         audioSource.Stop();
 
         // Stop robot movement
-        robotController.MoveInput = 0;
+        //robotController.MoveInput = 0;
+
+        animator.SetFloat("speed", 0);
+        animator.SetFloat("direction", robotController.MoveInput * -1);
+
+        // Stop robot rigidbody
+        robotController.StopCharacter();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (Input.GetKeyUp(robotData.moveLeftKey) || Input.GetKeyUp(robotData.moveRightKey))
+        if (Math.Abs(robotController.MoveInput) < robotController.movementDeadzone)
         {
             stateMachine.ChangeState(robotController.RobotIdleState);
-        }
-
-        // Attack control
-        if (Input.GetKeyDown(robotData.attackKey))
-        {
-            stateMachine.ChangeState(robotController.RobotAttackState);
-        }
-
-        // Defense control
-        if (Input.GetKeyDown(robotData.defenseKey))
-        {
-            stateMachine.ChangeState(robotController.RobotDefenseState);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+
+        if (!GameplayManager.IsPaused)
+        {
+            // Move character
+            robotController.MoveCharacter();
+
+            animator.SetFloat("speed", Mathf.Abs(robotController.MoveInput));
+            animator.SetFloat("direction", robotController.MoveInput * -1);
+        }
     }
 }

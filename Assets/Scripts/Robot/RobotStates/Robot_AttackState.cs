@@ -21,8 +21,6 @@ public class Robot_AttackState : Robot_State
         robotController.ReproduceSound(audioSource, robotData.attackNoImpactSound, false);
 
         animator.SetBool("attack", true);
-
-        robotController.StartCoroutine(robotController.WaitAnimationToFinish(robotController.RobotIdleState));
     }
 
     public override void Exit()

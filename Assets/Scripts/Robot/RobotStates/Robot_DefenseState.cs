@@ -26,19 +26,12 @@ public class Robot_DefenseState : Robot_State
 
         animator.SetBool("defend", false);
 
-        robotController.IsDefending = false;
+        Debug.Log("isDefending: " + robotController.IsDefending);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (Input.GetKeyUp(robotData.defenseKey))
-        {
-            robotController.robotAnimatorController.UnFreezeAnimation();
-
-            robotController.StartCoroutine(robotController.WaitAnimationToFinish(robotController.RobotIdleState));
-        }
     }
 
     public override void PhysicsUpdate()

@@ -11,9 +11,10 @@ public class RobotAnimatorController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+
     void FreezeAnimation()
     {
-        if (Input.GetKey(robotController.robotData.defenseKey))
+        if (robotController.IsDefending)
         {
             Debug.Log("Frezze animation");
 
@@ -29,5 +30,15 @@ public class RobotAnimatorController : MonoBehaviour
     public void AttackTrigger()
     {
         robotController.AttackTrigger();
+    }
+
+    public void DefenseAnimationEnds()
+    {
+        robotController.DefenseAnimationEnds();
+    }
+
+    public void AttackAnimationEnds()
+    {
+        robotController.AttackAnimationEnds();
     }
 }

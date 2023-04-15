@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Robot_IdleState : Robot_State
 {
@@ -23,50 +25,14 @@ public class Robot_IdleState : Robot_State
     {
         base.LogicUpdate();
 
-        if (!GameplayManager.IsPaused)
+        if (Math.Abs(robotController.MoveInput) > robotController.movementDeadzone)
         {
-            // Check movements controls
-            CheckMovementControls();
-
-            // Check action buttons
-            CheckActionControls();
+            stateMachine.ChangeState(robotController.RobotWalkState);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-    }
-
-    private void CheckMovementControls()
-    {
-        if (Input.GetKeyDown(robotData.moveLeftKey) || Input.GetKey(robotData.moveLeftKey))
-        {
-            stateMachine.ChangeState(robotController.RobotWalkState);
-
-            robotController.MoveInput = 1;
-        }
-
-        if (Input.GetKeyDown(robotData.moveRightKey) || Input.GetKey(robotData.moveRightKey))
-        {
-            stateMachine.ChangeState(robotController.RobotWalkState);
-
-            robotController.MoveInput = -1;
-        }
-    }
-
-    private void CheckActionControls()
-    {
-        // Attack control
-        if (Input.GetKeyDown(robotData.attackKey))
-        {
-            stateMachine.ChangeState(robotController.RobotAttackState);
-        }
-
-        // Defense control
-        if (Input.GetKeyDown(robotData.defenseKey))
-        {
-            stateMachine.ChangeState(robotController.RobotDefenseState);
-        }
     }
 }

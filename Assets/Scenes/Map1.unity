@@ -1991,6 +1991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36deb435bc0665c478be9a7cebe7c570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDirection: 0
   robotData: {fileID: 11400000, guid: 48b15895332e38c4793ae818fe0acecc, type: 2}
   startPosition: {fileID: 1440314321}
   playerHUD: {fileID: 399557177}
@@ -2001,7 +2002,6 @@ MonoBehaviour:
   attackAudioSource: {fileID: 1230262775}
   takeDamageAudioSource: {fileID: 1230262773}
   impactEffectTransform: {fileID: 977442388}
-  moveDirection: 0
 --- !u!4 &479289134
 Transform:
   m_ObjectHideFlags: 0
@@ -2561,9 +2561,77 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fa28c0e0-6aeb-4cdb-8d9b-817598494426
     m_ActionName: Combo/MoveCursor
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25ac4d7a-8dd5-4e03-98f0-8baa29b200fd
+    m_ActionName: Combo/EndCombo[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1526200714}
+        m_TargetAssemblyTypeName: Robot_Controller, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c6857cd6-c72d-4f20-86d9-9154c6cb7ab6
+    m_ActionName: Action/Movement[/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1526200714}
+        m_TargetAssemblyTypeName: Robot_Controller, Assembly-CSharp
+        m_MethodName: OnStartCombo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b3e4636b-035b-451f-b368-e047929b9497
+    m_ActionName: Action/StartCombo[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1526200714}
+        m_TargetAssemblyTypeName: Robot_Controller, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e23d02d1-d500-4728-ac78-49d42368a8a0
+    m_ActionName: Action/Attack[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1526200714}
+        m_TargetAssemblyTypeName: Robot_Controller, Assembly-CSharp
+        m_MethodName: OnDefense
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 70e1b2f3-e449-4de4-8a38-a0e68197e02c
+    m_ActionName: Action/Defense[/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: GamepadController
-  m_DefaultActionMap: Combo
+  m_DefaultActionMap: Action
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1001 &616752244
@@ -6194,6 +6262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36deb435bc0665c478be9a7cebe7c570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDirection: 1
   robotData: {fileID: 11400000, guid: a2a7b8611da3b494ebe2ea81c7252373, type: 2}
   startPosition: {fileID: 1795073343}
   playerHUD: {fileID: 218914815}
@@ -6204,7 +6273,6 @@ MonoBehaviour:
   attackAudioSource: {fileID: 14951147}
   takeDamageAudioSource: {fileID: 14951146}
   impactEffectTransform: {fileID: 1040198575}
-  moveDirection: 0
 --- !u!4 &1526200715
 Transform:
   m_ObjectHideFlags: 0
