@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
   m_Name: TestTarget3
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 0}
+  targetSprite: {fileID: 647710455260848925, guid: f94b2604e4c48ad49b2f58a885a9a8d4, type: 3}
