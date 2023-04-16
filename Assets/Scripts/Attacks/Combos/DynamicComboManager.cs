@@ -30,6 +30,7 @@ public class DynamicComboManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Robot_Controller robot_Controller;   
 
     [Header("Debug")]
     [SerializeField] private List<GameObject> targetSpawnedList;
@@ -167,8 +168,11 @@ public class DynamicComboManager : MonoBehaviour
         comboJoystickPanel.SetActive(false);
         comboButtonPanel.SetActive(false);
 
+        robot_Controller.SetNextAttack(currentComboNode.attackData);
+
         // Switch action map
         playerInput.SwitchCurrentActionMap("Action");
+        
     }
 
     #endregion

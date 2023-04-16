@@ -17,5 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4095fbf959ce8b4482620551e11eb15, type: 2}
   nodeType: 0
   animation: 
-  attackDamage: 4
-  attacksAmount: 1
+  attackData: {fileID: 11400000, guid: 37e26c76debed0940a20e0541cee9366, type: 2}

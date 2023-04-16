@@ -14,15 +14,7 @@ public class Character_Data : ScriptableObject
     public float movementSpeed;
     public float maxHealth;
     public string playerName;
-    public float attackRange;
-    public float attackDamage;
     [Range(0f, 1f)] public float armor;
-
-    [Header("Controls")]
-    public KeyCode moveLeftKey;
-    public KeyCode moveRightKey;
-    public KeyCode attackKey;
-    public KeyCode defenseKey;
 
     [Header("Sounds")]
     public AudioClip walkSound;

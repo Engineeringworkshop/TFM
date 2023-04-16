@@ -15,6 +15,9 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] public Character_Data robotData;
     [SerializeField] private Transform startPosition;
 
+    [Header("Attacks")]
+    [SerializeField] private AttackData normalAttack;
+
     [Header("References")]
     [SerializeField] public PlayerHUDController playerHUD;
     [SerializeField] private Animator animator;
@@ -29,6 +32,9 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     [Header("Transforms")]
     [SerializeField] private Transform impactEffectTransform;
+
+    [Header("Debug")]
+    [SerializeField] private AttackData nextAttack;
 
     // Properties
     public float Health { get; private set; }
@@ -175,13 +181,31 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         }
     }
 
+    public void SetNextAttack(AttackData data)
+    {
+        nextAttack = data;
+
+        IsAttacking = true;
+
+        RobotStateMachine.ChangeState(RobotAttackState);
+    }
+
     /// <summary>
     /// Method to be called from the animator in the exact frame of the attack animation.
     /// </summary>
     public void AttackTrigger()
     {
+        PerformAttack(nextAttack);
+    }
+
+    /// <summary>
+    /// Method to reset robot parameters to default
+    /// </summary>
+
+    private void PerformAttack(AttackData attackData)
+    {
         // Check targets on range
-       Collider[] colliders = Physics.OverlapSphere(transform.position, robotData.attackRange);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attackData.attackRange);
 
         // If there are targets in range try to get IDamageable interface
         foreach (var collider in colliders)
@@ -211,18 +235,17 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
                     CreateEffect(robotData.impactEffect, impactEffectTransform);
 
                     // Apply damage to target
-                    damageable.ApplyDamage(robotData.attackDamage);
+                    damageable.ApplyDamage(attackData.attackDamage);
 
                     // Start camera shake
                     cameraControl.StartCameraShake();
                 }
             }
         }
+
+        nextAttack = normalAttack;
     }
 
-    /// <summary>
-    /// Method to reset robot parameters to default
-    /// </summary>
     public void ResetRobot()
     {
         IsDefeated = false;
@@ -343,6 +366,9 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
             if (value.started)
             {
                 IsAttacking = true;
+
+                nextAttack = normalAttack;
+
                 RobotStateMachine.ChangeState(RobotAttackState);
             }
         }
