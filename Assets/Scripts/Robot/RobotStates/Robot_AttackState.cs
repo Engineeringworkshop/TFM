@@ -28,6 +28,8 @@ public class Robot_AttackState : Robot_State
         base.Exit();
 
         animator.SetBool("attack", false);
+
+        robotController.CancelDefense();
     }
 
     public override void LogicUpdate()

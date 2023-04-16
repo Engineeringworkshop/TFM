@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private EndGamePanelController endGamePanelController;
     [SerializeField] private PauseMenuController pauseMenuController;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private PlayerInput playerInput;
 
     [SerializeField] private List<Robot_Controller> playerList = new List<Robot_Controller>();
 
@@ -131,11 +133,6 @@ public class GameplayManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GameStartCoroutine());
-    }
-
-    private void Update()
-    {
-        CheckControls();
     }
 
     #region Gameplay logic
@@ -308,14 +305,6 @@ public class GameplayManager : MonoBehaviour
 
     #region Auxiliar methods
 
-    private void CheckControls()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePauseGame();
-        }
-    }
-
     private void ResetRobots()
     {
         foreach (var player in playerList)
@@ -402,4 +391,28 @@ public class GameplayManager : MonoBehaviour
 
         pauseMenuController.ToggleGameMenu(IsPaused);
     }
+
+    #region Controls
+
+    public void OnOpenGameMenu(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            TogglePauseGame();
+
+            playerInput.SwitchCurrentActionMap("GameMenu");
+        }
+    }
+
+    public void OnCloseGameMenu(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            TogglePauseGame();
+
+            playerInput.SwitchCurrentActionMap("Action");
+        }
+    }
+
+    #endregion
 }

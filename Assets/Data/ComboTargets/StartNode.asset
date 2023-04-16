@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
+  m_Name: StartNode
+  m_EditorClassIdentifier: 
+  targetSprite: {fileID: 0}
+  subComboNodeList:
+  - {fileID: 11400000, guid: 7047f8601d183dc48ae559ac8ce5072c, type: 2}
+  - {fileID: 11400000, guid: da5972481f1a1364787502a5ae16db4a, type: 2}
+  - {fileID: 11400000, guid: 458a49664222f254e8520e79d93ebbd5, type: 2}
+  nodeType: 0
+  animation: 
+  attackDamage: 0
+  attacksAmount: 0

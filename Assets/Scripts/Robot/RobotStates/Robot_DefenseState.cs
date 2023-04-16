@@ -26,7 +26,11 @@ public class Robot_DefenseState : Robot_State
 
         animator.SetBool("defend", false);
 
+        robotController.CancelDefense();
+
         Debug.Log("isDefending: " + robotController.IsDefending);
+
+        
     }
 
     public override void LogicUpdate()

@@ -15,6 +15,11 @@ public class JoysticCombo : DynamicComboController
     private Vector3 defaultPosition;
     private Vector2 movement;
 
+    private void OnEnable()
+    {
+        ResetPosition();
+    }
+
     private void Awake()
     {
         defaultPosition = joystickGameObject.position;
@@ -22,7 +27,10 @@ public class JoysticCombo : DynamicComboController
 
     private void Update()
     {
-        CalculateMovement();
+        if (!dynamicComboManager.isNodeReached)
+        {
+            CalculateMovement();
+        }
     }
 
     // Controls
@@ -44,12 +52,8 @@ public class JoysticCombo : DynamicComboController
         Vector2 currentMovement = new Vector3(joystickGameObject.position.x + speedGain * movement.x, joystickGameObject.position.y + speedGain * movement.y,
             joystickGameObject.position.z);
 
-        Vector2 joystickPosition = new Vector2(joystickGameObject.position.x, joystickGameObject.position.y);
         Vector2 originPosition = new Vector2(dynamicComboManager.transform.position.x, dynamicComboManager.transform.position.y);
 
-        Vector2 joystickVector = joystickPosition-originPosition;
-        //Debug.DrawLine(originPosition, joystickPosition, UnityEngine.Color.red);
-        
         Vector2 movementVector = currentMovement - originPosition;
         //Debug.DrawLine(originPosition, joystickPosition, UnityEngine.Color.green);
 
@@ -64,7 +68,7 @@ public class JoysticCombo : DynamicComboController
         joystickGameObject.position = currentMovement;
 
         // Check if is close to the target and reset position if reaced
-        if (dynamicComboManager.CheckDistance(joystickGameObject.transform.position))
+        if (dynamicComboManager.CheckDistance(joystickGameObject.transform.position, this))
         {
             ResetPosition();
         }

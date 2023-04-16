@@ -24,6 +24,7 @@ public class RobotAnimatorController : MonoBehaviour
 
     public void UnFreezeAnimation()
     {
+        Debug.Log("Unfrezze defense");
         animator.speed = 1f;
     }
 

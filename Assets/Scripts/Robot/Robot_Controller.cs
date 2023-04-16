@@ -20,6 +20,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] private Animator animator;
     [SerializeField] public RobotAnimatorController robotAnimatorController;
     [SerializeField] private CameraControl cameraControl;
+    [SerializeField] private DynamicComboManager dynamicComboManager;
 
     [Header("Audio sources")]
     [SerializeField] private AudioSource walkAudioSource;
@@ -240,7 +241,10 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     /// </summary>
     public void DefenseAnimationEnds()
     {
-        RobotStateMachine.ChangeState(RobotIdleState);
+        if (RobotStateMachine.CurrentState == RobotDefenseState)
+        {
+            RobotStateMachine.ChangeState(RobotIdleState);
+        }
     }
 
     /// <summary>
@@ -249,6 +253,13 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     public void AttackAnimationEnds()
     {
         RobotStateMachine.ChangeState(RobotIdleState);
+    }
+
+
+    public void AttackCombo()
+    {
+        IsAttacking = true;
+        RobotStateMachine.ChangeState(RobotAttackState);
     }
 
     #endregion
@@ -320,7 +331,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
         {
             if (value.started)
             {
-                
+                dynamicComboManager.ActiveComboPanel();
             }
         }
     }
@@ -357,13 +368,16 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
             {
                 Debug.Log("Canceled");
 
-                IsDefending = false;
-
-                robotAnimatorController.UnFreezeAnimation();
-
-                //StartCoroutine(WaitAnimationToFinish(RobotIdleState));
+                CancelDefense();
             }
         }
+    }
+
+    public void CancelDefense()
+    {
+        IsDefending = false;
+
+        robotAnimatorController.UnFreezeAnimation();
     }
 
     #endregion

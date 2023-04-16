@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenGameMenu",
+                    "type": "Button",
+                    "id": "7b126c83-34bc-404b-bfbf-2b22f739a593",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -134,11 +143,22 @@
                 {
                     "name": "",
                     "id": "ec931295-16e3-4f29-98e1-9e9c15fe3f0c",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "GamepadController",
                     "action": "Defense",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58f56595-9284-45a2-a7e6-5199479d5070",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamepadController",
+                    "action": "OpenGameMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -231,6 +251,34 @@
                     "processors": "",
                     "groups": "GamepadController",
                     "action": "EndCombo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameMenu",
+            "id": "ea50adb1-d987-4f6d-8bbf-11d18dbade5f",
+            "actions": [
+                {
+                    "name": "CloseGameMenu",
+                    "type": "Button",
+                    "id": "f5bd0820-adea-408e-bfde-fce997214813",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ebe3920e-be4c-499e-8485-095e9db3c4db",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamepadController",
+                    "action": "CloseGameMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
