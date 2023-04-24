@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
   m_Name: Node_1_1
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 0}
-  subNodeList: []
+  targetSprite: {fileID: 21300000, guid: a536388c3fef9bc49a1a037e00277eeb, type: 3}
+  subComboNodeList: []
   nodeType: 0
   animation: 
-  attackDamage: 0
-  attacksAmount: 0
+  attackData: {fileID: 0}

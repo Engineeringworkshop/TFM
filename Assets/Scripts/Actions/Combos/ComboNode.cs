@@ -13,4 +13,7 @@ public class ComboNode : ScriptableObject
 
     [Header("Attack stats")]
     public AttackData attackData;
+
+    [Header("Stat modifier")]
+    public List<StatModifierData> statModifierData;
 }

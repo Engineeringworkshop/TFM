@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
-  m_Name: Node_1_2
+  m_Script: {fileID: 11500000, guid: 6474a3fd2af59c7488cb8eb18a742450, type: 3}
+  m_Name: ModTest
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 21300000, guid: 544cc4a8e0c7dbb47a51d7a5efc19d49, type: 3}
-  subComboNodeList: []
-  nodeType: 0
-  animation: 
-  attackData: {fileID: 0}
+  StrengthBonus: 20
+  AgilityBonus: 20
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0

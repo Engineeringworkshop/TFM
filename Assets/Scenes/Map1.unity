@@ -2324,8 +2324,8 @@ MonoBehaviour:
   - {fileID: 1526200714}
   - {fileID: 479289133}
   currentWinner: {fileID: 0}
-  roundTextTime: 0.1
-  roundFightTime: 0.1
+  roundTextTime: 2
+  roundFightTime: 1
   roundTime: 50
   roundEndRoundTextTime: 1
   roundEndGameTextTime: 1
@@ -5813,7 +5813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 669868883934308585, guid: d3339396d15612a439aebddc04bac3a9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -18.1
+      value: -18.099976
       objectReference: {fileID: 0}
     - target: {fileID: 669868883934308585, guid: d3339396d15612a439aebddc04bac3a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6310,9 +6310,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1526200715}
-  - component: {fileID: 1526200714}
   - component: {fileID: 1526200713}
   - component: {fileID: 1526200716}
+  - component: {fileID: 1526200714}
+  - component: {fileID: 1526200717}
   m_Layer: 0
   m_Name: Robot_001
   m_TagString: Untagged
@@ -6391,6 +6392,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6040485, y: 1.7581475, z: 0.30770436}
   m_Center: {x: -0.056361318, y: 0.87350833, z: -0.00439097}
+--- !u!114 &1526200717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526200712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044070aafe65933499e7ccabd1c30747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Strength:
+    BaseValue: 1
+  Agility:
+    BaseValue: 1
 --- !u!1 &1543230446
 GameObject:
   m_ObjectHideFlags: 0

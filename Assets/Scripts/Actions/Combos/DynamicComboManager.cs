@@ -112,7 +112,7 @@ public class DynamicComboManager : MonoBehaviour
             }
         }
 
-        if (isNodeReached & targetReached != null)
+        if (isNodeReached && targetReached != null)
         {
             currentComboNode = targetReached.targetComboNode;
 
