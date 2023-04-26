@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ComboTarget : MonoBehaviour
 {
-    public ComboNode targetComboNode;
+    public ComboNodeData targetComboNode;
 }

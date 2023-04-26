@@ -6,10 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newStatModifierData", menuName = "Data/Stat Modifier Data")]
 public class StatModifierData : ScriptableObject
 {
+    [Header("Stat modifier configuration")]
+    public float statModifierTime;
+    [Space]
+
     [Header("Stat modifier atributes")]
     public int StrengthBonus;
     public int AgilityBonus;
     [Space]
+
     public float StrengthPercentBonus;
     public float AgilityPercentBonus;
 

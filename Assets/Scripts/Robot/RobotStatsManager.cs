@@ -14,6 +14,8 @@ public class RobotStatsManager : MonoBehaviour
         statModifierData.AddPowerUp(this);
 
         StartCoroutine(RemovePowerUpTimer(15, statModifierData));
+
+        Debug.Log("Strenght: " + Strength.Value + " Agility: " + Agility.Value);
     }
 
     private IEnumerator RemovePowerUpTimer(float time, StatModifierData statModifierData)
@@ -26,5 +28,7 @@ public class RobotStatsManager : MonoBehaviour
     private void RemovePowerUp(StatModifierData statModifierData)
     {
         statModifierData.RemovePowerUp(this);
+
+        Debug.Log("Strenght: " + Strength.Value + " Agility: " + Agility.Value);
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6474a3fd2af59c7488cb8eb18a742450, type: 3}
   m_Name: AgilityModTest
   m_EditorClassIdentifier: 
+  statModifierTime: 20
   StrengthBonus: 0
   AgilityBonus: 20
   StrengthPercentBonus: 0

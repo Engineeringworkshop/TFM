@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
+  m_Script: {fileID: 11500000, guid: d9a5d383af4726c45bfcfd01844cee70, type: 3}
   m_Name: Node_3_1
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 21300000, guid: dc8aa9621e4e73f4685e0e0a3fa156a7, type: 3}
+  targetSprite: {fileID: 8367830406354533065, guid: 6e97d2f3270c41349a895ff14097c016, type: 3}
   subComboNodeList: []
   nodeType: 0
   animation: 
   attackData: {fileID: 0}
   statModifierData:
-  - {fileID: 11400000, guid: 38507479341069f40b3d4b21a30a4e47, type: 2}
+  - {fileID: 11400000, guid: f90e8985a290706439bef9cd2a05c22e, type: 2}

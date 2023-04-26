@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
-  m_Name: TestTarget3
+  m_Script: {fileID: 11500000, guid: 27d685ddca9c6ad44929f7043aa36e6c, type: 3}
+  m_Name: JabAttack
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 647710455260848925, guid: f94b2604e4c48ad49b2f58a885a9a8d4, type: 3}
+  attackDamage: 15
+  attackRange: 1.2
+  attacksAmount: 1

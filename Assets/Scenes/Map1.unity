@@ -2567,7 +2567,7 @@ MonoBehaviour:
     m_ActionName: Combo/MoveCursor
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 643537357}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DynamicComboManager, Assembly-CSharp
         m_MethodName: OnEndCombo
         m_Mode: 0
@@ -2791,7 +2791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetReferenceRadius: {fileID: 836390662}
-  firstComboNode: {fileID: 11400000, guid: a695f89947c625f418b6788613cb88d0, type: 2}
+  firstComboNode: {fileID: 11400000, guid: 9cc1bfdf5d728a344bc65441fff95189, type: 2}
   currentComboNode: {fileID: 0}
   cursor: {fileID: 309294334}
   targetObj: {fileID: 3060048359426655685, guid: 7b872d26793766642a0a9d70b0f34041, type: 3}
@@ -2800,6 +2800,7 @@ MonoBehaviour:
   comboButtonPanel: {fileID: 1880084142}
   playerInput: {fileID: 585205731}
   robot_Controller: {fileID: 1526200714}
+  robotStatsManager: {fileID: 1526200717}
   targetSpawnedList: []
 --- !u!1 &705507993
 GameObject:

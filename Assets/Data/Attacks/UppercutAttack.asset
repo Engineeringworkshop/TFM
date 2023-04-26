@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1688c7e5f5c21cb4d855136e6afa041a, type: 3}
-  m_Name: TestTarget1
+  m_Script: {fileID: 11500000, guid: 27d685ddca9c6ad44929f7043aa36e6c, type: 3}
+  m_Name: UppercutAttack
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: -257431129506684174, guid: a9187a371d48aff48ad250df571ca8fe, type: 3}
+  attackDamage: 25
+  attackRange: 1.2
+  attacksAmount: 1

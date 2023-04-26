@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,8 @@ public class DynamicComboManager : MonoBehaviour
 {
     [Header("Node spawn configuration")]
     [SerializeField] private Transform targetReferenceRadius;
-    [SerializeField] private ComboNode firstComboNode;
-    [SerializeField] private ComboNode currentComboNode;
+    [SerializeField] private ComboNodeData firstComboNode;
+    [SerializeField] private ComboNodeData currentComboNode;
     [SerializeField] private GameObject cursor;
     [SerializeField] private GameObject targetObj;
 
@@ -30,7 +31,8 @@ public class DynamicComboManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private Robot_Controller robot_Controller;   
+    [SerializeField] private Robot_Controller robot_Controller;
+    [SerializeField] private RobotStatsManager robotStatsManager;
 
     [Header("Debug")]
     [SerializeField] private List<GameObject> targetSpawnedList;
@@ -60,7 +62,7 @@ public class DynamicComboManager : MonoBehaviour
         }
 
         // Set the initial target position
-        float randomAngle = Random.Range(0, 2 * Mathf.PI);
+        float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
         float spawnAngle = Mathf.Deg2Rad * (360 / currentComboNode.subComboNodeList.Count);
 
         targetSpawnedList.Clear();
@@ -161,6 +163,8 @@ public class DynamicComboManager : MonoBehaviour
 
     public void OnEndCombo(InputAction.CallbackContext value)
     {
+        Debug.Log("OnEnCombo");
+
         // Destroy all targets
         DestroyTargets();
 
@@ -168,11 +172,33 @@ public class DynamicComboManager : MonoBehaviour
         comboJoystickPanel.SetActive(false);
         comboButtonPanel.SetActive(false);
 
-        robot_Controller.SetNextAttack(currentComboNode.attackData);
+        // If combo node has modifiers to add the player stats apply it
+        if (currentComboNode.statModifierData != null)
+        {
+            foreach (var modifier in currentComboNode.statModifierData)
+            {
+                robotStatsManager.AddPowerUp(modifier);
+
+                StartCoroutine(RemoveModifiers(modifier));
+            }
+        }
+
+        // If combo node has attack execute it
+        if (currentComboNode.attackData != null)
+        {
+            robot_Controller.SetNextAttack(currentComboNode.attackData);
+        }
 
         // Switch action map
         playerInput.SwitchCurrentActionMap("Action");
         
+    }
+
+    public IEnumerator RemoveModifiers(StatModifierData statModifierData)
+    {
+        yield return new WaitForSecondsRealtime(statModifierData.statModifierTime);
+
+        statModifierData.RemovePowerUp(robotStatsManager);
     }
 
     #endregion
