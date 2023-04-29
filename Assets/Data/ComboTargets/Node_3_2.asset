@@ -19,3 +19,4 @@ MonoBehaviour:
   attackData: {fileID: 0}
   statModifierData:
   - {fileID: 11400000, guid: 38507479341069f40b3d4b21a30a4e47, type: 2}
+  characterEffectData: {fileID: 11400000, guid: bb898a639ad6b0046a40d47905ce36de, type: 2}

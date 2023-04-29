@@ -82,6 +82,10 @@ public class GameplayManager : MonoBehaviour
     public delegate void GamePaused();
     public static event GamePaused OnGamePaused;
 
+    public delegate void RoundEnd();
+    public static event RoundEnd OnRoundEnd;
+
+
     private void OnValidate()
     {
         if (blackPanelController == null)
@@ -259,11 +263,16 @@ public class GameplayManager : MonoBehaviour
             }
         }
         
-
         // Update HUD win counter
         foreach (var player in playerList)
         {
             player.playerHUD.UpdateWinCounter(player.WinCount);
+        }
+
+        // Activate round end event
+        if (OnRoundEnd != null)
+        {
+            OnRoundEnd();
         }
 
         // Wait for the specified length of time until yielding control back to the game loop

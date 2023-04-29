@@ -8,6 +8,7 @@ public class StatModifierData : ScriptableObject
 {
     [Header("Stat modifier configuration")]
     public float statModifierTime;
+    public CharacterEffectData characterEffectData;
     [Space]
 
     [Header("Stat modifier atributes")]
@@ -18,7 +19,11 @@ public class StatModifierData : ScriptableObject
     public float StrengthPercentBonus;
     public float AgilityPercentBonus;
 
-    public void AddPowerUp(RobotStatsManager robotStatsManager)
+    /// <summary>
+    /// Method to add this stat modifier (Power up) to the character stat in the given RobotStatsManager
+    /// </summary>
+    /// <param name="robotStatsManager"></param>
+    public void AddPowerUp(CharacterStatsManager robotStatsManager)
     {
         // Flat modifiers
         if (StrengthBonus != 0)
@@ -33,7 +38,11 @@ public class StatModifierData : ScriptableObject
             robotStatsManager.Agility.AddModifier(new StatModifier(AgilityPercentBonus, StatModType.PercentMult, this));
     }
 
-    public void RemovePowerUp(RobotStatsManager robotStatsManager)
+    /// <summary>
+    /// Method to remove this stat modifier (Power up) to the character stat from the given RobotStatsManager
+    /// </summary>
+    /// <param name="robotStatsManager"></param>
+    public void RemovePowerUp(CharacterStatsManager robotStatsManager)
     {
         robotStatsManager.Strength.RemoveAllModifiersFromSource(this);
         robotStatsManager.Agility.RemoveAllModifiersFromSource(this);

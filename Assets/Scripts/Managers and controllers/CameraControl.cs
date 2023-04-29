@@ -30,7 +30,7 @@ public class CameraControl : MonoBehaviour
 
     private void Awake()
     {
-        isShaking = false;
+        //isShaking = false;
     }
 
     private void Start()

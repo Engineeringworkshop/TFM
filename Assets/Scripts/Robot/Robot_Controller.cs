@@ -25,7 +25,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] public RobotAnimatorController robotAnimatorController;
     [SerializeField] private CameraControl cameraControl;
     [SerializeField] private DynamicComboManager dynamicComboManager;
-    [SerializeField] private RobotStatsManager robotStatsManager;
+    [SerializeField] private CharacterStatsManager robotStatsManager;
 
     [Header("Audio sources")]
     [SerializeField] private AudioSource walkAudioSource;
@@ -80,7 +80,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     {
         // Set references
         rb = GetComponent<Rigidbody>();
-        robotStatsManager = GetComponent<RobotStatsManager>();
+        robotStatsManager = GetComponent<CharacterStatsManager>();
 
         // State machine
         RobotStateMachine = new Robot_StateMachine();

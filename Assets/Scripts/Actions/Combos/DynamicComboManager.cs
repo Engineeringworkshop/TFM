@@ -32,7 +32,7 @@ public class DynamicComboManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Robot_Controller robot_Controller;
-    [SerializeField] private RobotStatsManager robotStatsManager;
+    [SerializeField] private CharacterStatsManager robotStatsManager;
 
     [Header("Debug")]
     [SerializeField] private List<GameObject> targetSpawnedList;

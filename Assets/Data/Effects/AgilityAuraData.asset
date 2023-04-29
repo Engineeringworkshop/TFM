@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1870bd0164e0eda4c8ec4cf857600c86, type: 3}
+  m_Name: AgilityAuraData
+  m_EditorClassIdentifier: 
+  characterEffect: {fileID: 7067604819975997957, guid: aec43a9b837ffa249b8f5e13475178de, type: 3}
+  characterEffectType: 0

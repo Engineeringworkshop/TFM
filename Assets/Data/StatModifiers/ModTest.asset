@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6474a3fd2af59c7488cb8eb18a742450, type: 3}
   m_Name: ModTest
   m_EditorClassIdentifier: 
-  statModifierTime: 20
+  statModifierTime: 10
+  characterEffectData: {fileID: 11400000, guid: c8bc80633e230cf4cac0e39e113e2d1b, type: 2}
   StrengthBonus: 5
   AgilityBonus: 5
   StrengthPercentBonus: 0
