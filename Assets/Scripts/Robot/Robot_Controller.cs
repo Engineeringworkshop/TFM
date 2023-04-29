@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Controller>
 {
@@ -24,6 +25,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     [SerializeField] public RobotAnimatorController robotAnimatorController;
     [SerializeField] private CameraControl cameraControl;
     [SerializeField] private DynamicComboManager dynamicComboManager;
+    [SerializeField] private RobotStatsManager robotStatsManager;
 
     [Header("Audio sources")]
     [SerializeField] private AudioSource walkAudioSource;
@@ -78,6 +80,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     {
         // Set references
         rb = GetComponent<Rigidbody>();
+        robotStatsManager = GetComponent<RobotStatsManager>();
 
         // State machine
         RobotStateMachine = new Robot_StateMachine();
@@ -119,7 +122,10 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     /// </summary>
     public void MoveCharacter()
     {
-        float currSpeed = robotData.movementSpeed * Time.fixedDeltaTime;
+        float currSpeed = (robotData.movementSpeed + robotStatsManager.Agility.Value * 100) * Time.fixedDeltaTime;
+
+        Debug.Log("Current speed: " + currSpeed);
+
         // We multiply the 'speed' variable to the Rigidbody's velocity...
         // and also multiply 'Time.fixedDeltaTime' to keep the movement consistant on all devices
         rb.velocity = new Vector3(0, 0, MoveInput).normalized * currSpeed;
@@ -235,7 +241,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
                     CreateEffect(robotData.impactEffect, impactEffectTransform);
 
                     // Apply damage to target
-                    damageable.ApplyDamage(attackData.attackDamage);
+                    damageable.ApplyDamage(attackData.attackDamage + robotStatsManager.Strength.Value * 10);
 
                     // Start camera shake
                     cameraControl.StartCameraShake();

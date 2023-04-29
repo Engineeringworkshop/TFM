@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrenghtModTest
   m_EditorClassIdentifier: 
   statModifierTime: 20
-  StrengthBonus: 20
+  StrengthBonus: 5
   AgilityBonus: 0
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0

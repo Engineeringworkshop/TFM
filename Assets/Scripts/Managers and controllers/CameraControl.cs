@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-    private bool isShaking;
+    //private bool isShaking;
 
     private void OnValidate()
     {
