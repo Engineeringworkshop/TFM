@@ -34,7 +34,7 @@ public class Robot_WalkState : Robot_State
         //robotController.MoveInput = 0;
 
         animator.SetFloat("speed", 0);
-        animator.SetFloat("direction", robotController.MoveInput * -1);
+        animator.SetFloat("direction", robotController.MoveInput * 1);
 
         // Stop robot rigidbody
         robotController.StopCharacter();
@@ -60,7 +60,7 @@ public class Robot_WalkState : Robot_State
             robotController.MoveCharacter();
 
             animator.SetFloat("speed", Mathf.Abs(robotController.MoveInput));
-            animator.SetFloat("direction", robotController.MoveInput * -1);
+            animator.SetFloat("direction", robotController.MoveInput * 1);
         }
     }
 }

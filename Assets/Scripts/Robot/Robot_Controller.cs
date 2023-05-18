@@ -44,7 +44,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
     public bool IsDefeated { get; private set; }
     public bool IsAttacking { get; private set; }
     public int WinCount { get; set; }
-    public float MoveInput { get; set; }
+    public float MoveInput ; 
 
     // State machine
     public Robot_StateMachine RobotStateMachine { get; private set; }
@@ -128,7 +128,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
         // We multiply the 'speed' variable to the Rigidbody's velocity...
         // and also multiply 'Time.fixedDeltaTime' to keep the movement consistant on all devices
-        rb.velocity = new Vector3(0, 0, MoveInput).normalized * currSpeed;
+        rb.velocity = new Vector3(0, 0, MoveInput) * currSpeed;
     }
 
     /// <summary>
