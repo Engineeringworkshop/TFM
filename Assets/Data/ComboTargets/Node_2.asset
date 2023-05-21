@@ -15,8 +15,6 @@ MonoBehaviour:
   targetSprite: {fileID: 6985626698306143173, guid: 6e97d2f3270c41349a895ff14097c016, type: 3}
   subComboNodeList:
   - {fileID: 11400000, guid: 8dbd36c64a9ebba43b37cd3ed662d76d, type: 2}
-  - {fileID: 11400000, guid: 831df99c889c9f14b9ebfb4aa06adae0, type: 2}
-  - {fileID: 11400000, guid: 4436995a04cb1824ea2523b1e524c91d, type: 2}
   nodeType: 0
   animation: 
   attackData: {fileID: 0}

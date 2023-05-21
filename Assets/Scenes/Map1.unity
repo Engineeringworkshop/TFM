@@ -2036,6 +2036,7 @@ MonoBehaviour:
   takeDamageAudioSource: {fileID: 1230262773}
   impactEffectTransform: {fileID: 977442388}
   nextAttack: {fileID: 0}
+  MoveInput: 0
 --- !u!4 &479289134
 Transform:
   m_ObjectHideFlags: 0
@@ -2355,11 +2356,11 @@ MonoBehaviour:
   - {fileID: 1526200714}
   - {fileID: 479289133}
   currentWinner: {fileID: 0}
-  roundTextTime: 0.1
-  roundFightTime: 0.1
+  roundTextTime: 2
+  roundFightTime: 1.5
   roundTime: 50
-  roundEndRoundTextTime: 1
-  roundEndGameTextTime: 1
+  roundEndRoundTextTime: 3
+  roundEndGameTextTime: 2
   roundPrepareAudio: {fileID: 8300000, guid: bbf93f4a7f6b1b440b7c61ca10b6d001, type: 3}
   fightAudio: {fileID: 8300000, guid: e3db791b77a7c5f4aaf74bc488f07092, type: 3}
   tiedAudio: {fileID: 8300000, guid: 541252948df5da849934915447c28ba4, type: 3}
@@ -6397,6 +6398,7 @@ MonoBehaviour:
   takeDamageAudioSource: {fileID: 14951146}
   impactEffectTransform: {fileID: 1040198575}
   nextAttack: {fileID: 0}
+  MoveInput: 0
 --- !u!4 &1526200715
 Transform:
   m_ObjectHideFlags: 0

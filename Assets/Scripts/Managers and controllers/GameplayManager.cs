@@ -228,11 +228,9 @@ public class GameplayManager : MonoBehaviour
         // Start timer coroutine
         var coroutine = StartCoroutine(TimeCounter());
 
-        while (!hasWinner && !roundTimeComplete)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => hasWinner || roundTimeComplete); 
 
+        // Stop the timer coroutine
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
@@ -275,7 +273,7 @@ public class GameplayManager : MonoBehaviour
             OnRoundEnd();
         }
 
-        // Wait for the specified length of time until yielding control back to the game loop
+        // Wait for the specified length of time until yielding control back to the game loop (cooldown between rounds)
         yield return roundEndRoundTextTimer;
     }
 

@@ -56,7 +56,20 @@ namespace modules.CharacterStats
 			return false;
 		}
 
-		public virtual bool RemoveAllModifiersFromSource(object source)
+        public virtual bool RemoveAllModifiers()
+        {
+            bool didRemove = false;
+
+            for (int i = statModifiers.Count - 1; i >= 0; i--)
+            {
+                isDirty = true;
+                didRemove = true;
+                statModifiers.RemoveAt(i);
+            }
+            return didRemove;
+        }
+
+        public virtual bool RemoveAllModifiersFromSource(object source)
 		{
 			bool didRemove = false;
 

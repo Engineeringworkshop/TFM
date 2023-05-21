@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Node_2_1
   m_EditorClassIdentifier: 
   targetSprite: {fileID: 6985626698306143173, guid: 6e97d2f3270c41349a895ff14097c016, type: 3}
-  subComboNodeList: []
+  subComboNodeList:
+  - {fileID: 11400000, guid: 831df99c889c9f14b9ebfb4aa06adae0, type: 2}
   nodeType: 0
   animation: 
   attackData: {fileID: 0}

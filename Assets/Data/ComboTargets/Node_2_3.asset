@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a5d383af4726c45bfcfd01844cee70, type: 3}
   m_Name: Node_2_3
   m_EditorClassIdentifier: 
-  targetSprite: {fileID: 0}
+  targetSprite: {fileID: 6985626698306143173, guid: 6e97d2f3270c41349a895ff14097c016, type: 3}
   subComboNodeList: []
   nodeType: 0
   animation: 
-  attackData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: b4cdb7713a21e124bb7089bbbc4c1721, type: 2}
   statModifierData: []
