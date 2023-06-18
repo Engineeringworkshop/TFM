@@ -18,13 +18,7 @@ MonoBehaviour:
   movementSpeed: 500
   maxHealth: 100
   playerName: Player1
-  attackRange: 1
-  attackDamage: 10
   armor: 1
-  moveLeftKey: 97
-  moveRightKey: 100
-  attackKey: 102
-  defenseKey: 114
   walkSound: {fileID: 8300000, guid: 87cb30694a44b6c4a980a5ecb7181374, type: 3}
   attackNoImpactSound: {fileID: 8300000, guid: a91779d85bcaa524b8a6e0ee179a98df, type: 3}
   impactNotDefendedSound: {fileID: 8300000, guid: 1af992232e187a5439021e510bea50e4, type: 3}

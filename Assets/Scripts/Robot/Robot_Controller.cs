@@ -96,7 +96,7 @@ public class Robot_Controller : MonoBehaviour, IDamageable, IComparable<Robot_Co
 
     private void Start()
     {
-        ResetRobot();
+        //ResetRobot();
 
         WinCount = 0;
     }
