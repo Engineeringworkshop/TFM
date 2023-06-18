@@ -12,8 +12,6 @@ public class BlackPanelController : MonoBehaviour
     [SerializeField] [Range(0.0f, 1.0f)] private float defaultFadeIn;
     [SerializeField] private float defaultFadeTime;
 
-    private WaitForSecondsRealtime fadeTimer;
-
     private void OnValidate()
     {
         if (blackPanelImage == null)
@@ -24,8 +22,6 @@ public class BlackPanelController : MonoBehaviour
 
     private void Awake()
     {
-        fadeTimer = new WaitForSecondsRealtime(defaultFadeTime);
-
         blackPanel.SetActive(false);
     }
 
